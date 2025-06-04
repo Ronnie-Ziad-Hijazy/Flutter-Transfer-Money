@@ -9,10 +9,16 @@ import 'package:bank/features/home/pages/home_page.dart';
 import 'package:bank/features/home/services/home_repository.dart';
 import 'package:bank/features/auth/services/auth_repository.dart';
 import 'package:flutter/material.dart';
+import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
+
+  await SystemChrome.setPreferredOrientations([
+    DeviceOrientation.portraitUp,
+    DeviceOrientation.portraitDown, // Optional: allow upside-down portrait
+  ]);
 
   await HiveStorage.init();
 
