@@ -12,7 +12,6 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
   AuthBloc(this._authRepository) : super(AuthInitial()) {
     on<LoginEvent>(_onLogin);
     on<RegisterEvent>(_onRegister);
-    on<LogoutEvent>(_onLogout);
     on<CheckAuthStatusEvent>(_onCheckAuthStatus);
   }
 
@@ -71,17 +70,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
-  Future<void> _onLogout(LogoutEvent event, Emitter<AuthState> emit) async {
-    try {
-      // Clear data first
-      await HiveStorage.clearAuthData();
-      // Only emit one state - the logged out state
-      emit(AuthLoggedOut());
-    } catch (e) {
-      // If clearing data fails, still emit logged out state
-      emit(AuthLoggedOut());
-    }
-  }
+  
 
   Future<void> _onCheckAuthStatus(CheckAuthStatusEvent event, Emitter<AuthState> emit) async {
     if (HiveStorage.isLoggedIn) {
