@@ -142,17 +142,28 @@ class _HomeScreenState extends State<HomeScreen>
                         topRight: Radius.circular(30),
                       ),
                     ),
-                    child: Column(
+                    child:
+                    RefreshIndicator(child: SingleChildScrollView(
+                      physics: const AlwaysScrollableScrollPhysics(),
+                      child:  Column(
                       children: [
+                        
                         const SizedBox(height: 40),
                         _buildBalanceCard(),
                         const SizedBox(height: 40),
                         _buildActionButtons(),
                         const SizedBox(height: 30),
                         _buildQuickActions(),
+                       const SizedBox(height: 40,)
                         // const Spacer(),
                       ],
                     ),
+                    ), onRefresh: () async {
+                      context.read<HomeBloc>().add(LoadBalanceEvent());
+                      // Optionally wait for state to change, or just delay for effect
+                      await Future.delayed(const Duration(milliseconds: 800));
+                    },)
+                    
                   ),
                 ),
               ],
