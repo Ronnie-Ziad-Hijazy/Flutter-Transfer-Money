@@ -2,6 +2,7 @@ import 'package:bank/core/local_storage/hive.dart';
 import 'package:bank/features/auth/bloc/auth_event.dart';
 import 'package:bank/features/auth/bloc/auth_state.dart';
 import 'package:bank/features/auth/model/login_request.dart' as auth_models;
+import 'package:bank/features/auth/model/register_request.dart' as auth_models;
 import 'package:bank/features/auth/services/auth_repository.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
@@ -10,6 +11,7 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
   AuthBloc(this._authRepository) : super(AuthInitial()) {
     on<LoginEvent>(_onLogin);
+    on<RegisterEvent>(_onRegister);
     on<LogoutEvent>(_onLogout);
     on<CheckAuthStatusEvent>(_onCheckAuthStatus);
   }
@@ -41,9 +43,44 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
     }
   }
 
+  Future<void> _onRegister(RegisterEvent event, Emitter<AuthState> emit) async {
+    emit(AuthLoading());
+    
+    try {
+      final registerRequest = auth_models.RegisterRequest(
+        name: event.name,
+        email: event.email,
+        password: event.password,
+      );
+      
+      final response = await _authRepository.register(registerRequest);
+      
+      await HiveStorage.saveAuthData(
+        token: response.token,
+        userId: response.userId,
+      );
+      
+      emit(AuthSuccess(
+        token: response.token,
+        userId: response.userId,
+      ));
+    } on auth_models.AuthError catch (e) {
+      emit(AuthError(message: e.errorMsg));
+    } catch (e) {
+      emit(AuthError(message: 'An unexpected error occurred'));
+    }
+  }
+
   Future<void> _onLogout(LogoutEvent event, Emitter<AuthState> emit) async {
-    await HiveStorage.clearAuthData();
-    emit(AuthLoggedOut());
+    try {
+      // Clear data first
+      await HiveStorage.clearAuthData();
+      // Only emit one state - the logged out state
+      emit(AuthLoggedOut());
+    } catch (e) {
+      // If clearing data fails, still emit logged out state
+      emit(AuthLoggedOut());
+    }
   }
 
   Future<void> _onCheckAuthStatus(CheckAuthStatusEvent event, Emitter<AuthState> emit) async {

@@ -295,24 +295,7 @@ class _SendMoneyBottomSheetState extends State<SendMoneyBottomSheet>
       Navigator.of(context).pop(); // Close confirmation dialog
       Navigator.of(context).pop(); // Close bottom sheet
       
-      // Show success message
-      // ScaffoldMessenger.of(context).showSnackBar(
-      //   SnackBar(
-      //     content: Row(
-      //       children: [
-      //         const Icon(Icons.check_circle, color: Colors.white),
-      //         const SizedBox(width: 8),
-      //         Text('Money sent to $email successfully!'),
-      //       ],
-      //     ),
-      //     backgroundColor: Colors.green.shade600,
-      //     shape: RoundedRectangleBorder(
-      //       borderRadius: BorderRadius.circular(8),
-      //     ),
-      //     behavior: SnackBarBehavior.floating,
-      //     duration: const Duration(seconds: 3),
-      //   ),
-      // );
+
     }
   }
 
@@ -462,6 +445,7 @@ class _SendMoneyBottomSheetState extends State<SendMoneyBottomSheet>
                       ),
                       const SizedBox(height: 20),
 // ronnie.hijazy@arcellaco.com
+//ronnyhijazy@gmail.com
                       // Amount Field
                       TextFormField(
                         controller: _amountController,
