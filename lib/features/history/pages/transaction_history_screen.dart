@@ -46,14 +46,14 @@ class TransactionHistoryScreen extends StatelessWidget {
                     begin: Alignment.topLeft,
                     end: Alignment.bottomRight,
                     colors: [
-                      // Color(0xFF667EEA),
-                      // Color(0xFF764BA2),
+                      
+                      
 
                       Color(0xFF2D5D70),
                       Color(0xFF74A7BA)
 
-                      // Color(0xFF2D5D70),
-                      // Color(0xFFDDE6E8)
+                      
+                      
                     ],
                   ),
                 ),
@@ -236,13 +236,13 @@ class ModernTransactionCard extends StatelessWidget {
         child: InkWell(
           borderRadius: BorderRadius.circular(20),
           onTap: () {
-            // Handle transaction tap
+            
           },
           child: Padding(
             padding: const EdgeInsets.all(20),
             child: Row(
               children: [
-                // Transaction Icon with Gradient
+                
                 Container(
                   width: 56,
                   height: 56,
@@ -272,12 +272,12 @@ class ModernTransactionCard extends StatelessWidget {
                 ),
                 const SizedBox(width: 16),
                 
-                // Transaction Details
+                
                 Expanded(
                   child: Column(
                     crossAxisAlignment: CrossAxisAlignment.start,
                     children: [
-                      // Transaction Type
+                      
                       Container(
                         padding: const EdgeInsets.symmetric(horizontal: 10, vertical: 4),
                         decoration: BoxDecoration(
@@ -297,7 +297,7 @@ class ModernTransactionCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 8),
                       
-                      // Email
+                      
                       Text(
                         isSent ? transaction.to : transaction.from,
                         style: const TextStyle(
@@ -309,7 +309,7 @@ class ModernTransactionCard extends StatelessWidget {
                       ),
                       const SizedBox(height: 4),
                       
-                      // Date
+                      
                       Text(
                         _formatDate(transaction.createdAt),
                         style: TextStyle(
@@ -322,7 +322,7 @@ class ModernTransactionCard extends StatelessWidget {
                   ),
                 ),
                 
-                // Amount
+                
                 Column(
                   crossAxisAlignment: CrossAxisAlignment.end,
                   children: [
@@ -418,8 +418,8 @@ class TransactionSummaryCard extends StatelessWidget {
           begin: Alignment.topLeft,
           end: Alignment.bottomRight,
           colors: [
-            // Color(0xFF667EEA),
-            // Color(0xFF764BA2),
+            
+            
             Color(0xFF2D5D70),
             Color(0xFF74A7BA)
           ],
@@ -589,7 +589,7 @@ class ModernErrorWidget extends StatelessWidget {
           const SizedBox(height: 24),
           ElevatedButton(
             onPressed: () {
-              // Retry logic
+              
             },
             style: ElevatedButton.styleFrom(
               backgroundColor: const Color(0xFF667EEA),

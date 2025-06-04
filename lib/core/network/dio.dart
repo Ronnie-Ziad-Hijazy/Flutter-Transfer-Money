@@ -58,13 +58,13 @@ class DioClient {
   }
 
   Future<String?> _getStoredToken() async {
-    // This will be implemented with Hive
-    // For now, return null
+    
+    
     return null;
   }
 
   Future<void> _clearStoredToken() async {
-    // This will be implemented with Hive
-    // For now, do nothing
+    
+    
   }
 }

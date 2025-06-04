@@ -25,7 +25,7 @@ class EmailTextField extends StatelessWidget {
           return 'Email is required';
         }
         
-        // Email validation regex
+        
         final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
         if (!emailRegex.hasMatch(email)) {
           return 'Please enter a valid email';
@@ -37,7 +37,7 @@ class EmailTextField extends StatelessWidget {
   }
 }
 
-// Updated PasswordTextField
+
 class PasswordTextField extends StatefulWidget {
   const PasswordTextField({
     super.key,
@@ -91,7 +91,7 @@ class _PasswordTextFieldState extends State<PasswordTextField> {
   }
 }
 
-// Updated NameTextField
+
 class NameTextField extends StatelessWidget {
   const NameTextField({
     super.key,

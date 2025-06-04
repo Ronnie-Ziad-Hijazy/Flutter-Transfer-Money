@@ -44,7 +44,7 @@ class _HomeScreenState extends State<HomeScreen>
       curve: Curves.easeOutBack,
     ));
 
-    // Load balance when screen opens
+    
     context.read<HomeBloc>().add(LoadBalanceEvent());
     _animationController.forward();
   }
@@ -105,9 +105,9 @@ class _HomeScreenState extends State<HomeScreen>
             begin: Alignment.topLeft,
             end: Alignment.bottomRight,
             colors: [
-              // Colors.blue.shade900,
-              // Colors.blue.shade700,
-              // Colors.blue.shade500,
+              
+              
+              
               kPrimaryColor,
               kBackgroundColor,
             ],
@@ -128,10 +128,10 @@ class _HomeScreenState extends State<HomeScreen>
             },
             child: Column(
               children: [
-                // Header
+                
                 _buildHeader(),
 
-                // Balance Card
+                
                 Expanded(
                   child: Container(
                     margin: const EdgeInsets.only(top: 20),
@@ -155,12 +155,12 @@ class _HomeScreenState extends State<HomeScreen>
                         const SizedBox(height: 30),
                         _buildQuickActions(),
                        const SizedBox(height: 40,)
-                        // const Spacer(),
+                        
                       ],
                     ),
                     ), onRefresh: () async {
                       context.read<HomeBloc>().add(LoadBalanceEvent());
-                      // Optionally wait for state to change, or just delay for effect
+                      
                       await Future.delayed(const Duration(milliseconds: 800));
                     },)
                     
@@ -181,7 +181,7 @@ class _HomeScreenState extends State<HomeScreen>
         padding: const EdgeInsets.all(20),
         child: Row(
           children: [
-            // User Avatar
+            
             Container(
               padding: const EdgeInsets.all(3),
               decoration: BoxDecoration(
@@ -200,7 +200,7 @@ class _HomeScreenState extends State<HomeScreen>
             ),
             const SizedBox(width: 16),
 
-            // Welcome Text
+            
             Expanded(
               child: Column(
                 crossAxisAlignment: CrossAxisAlignment.start,
@@ -265,7 +265,7 @@ class _HomeScreenState extends State<HomeScreen>
     );
   }
 
-  // MODIFIED: Make balance card full width
+  
   Widget _buildBalanceCard() {
     return SlideTransition(
       position: _slideAnimation,
@@ -447,17 +447,17 @@ class _HomeScreenState extends State<HomeScreen>
                   onTap: _showSendMoneyBottomSheet,
                 ),
               ),
-              // const SizedBox(width: 16),
-              // Expanded(
-              //   child: _buildActionButton(
-              //     icon: Icons.refresh,
-              //     label: 'Refresh',
-              //     color: Colors.green,
-              //     onTap: () {
-              //       context.read<HomeBloc>().add(RefreshBalanceEvent());
-              //     },
-              //   ),
-              // ),
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
+              
             ],
           ),
         ),
@@ -556,15 +556,15 @@ class _HomeScreenState extends State<HomeScreen>
                         MaterialPageRoute(
                             builder: (context) => TransactionHistoryScreen()),
                       );
-                      // _showSnackBar('Transaction history coming soon!',
-                      //     isError: false);
+                      
+                      
                     },
                   ),
                   _buildQuickActionItem(
                     icon: Icons.account_balance,
                     label: 'Account',
                     onTap: () {
-                      // TODO: Navigate to account details
+                      
                       _showSnackBar('Account details coming soon!',
                           isError: false);
                     },
@@ -573,7 +573,7 @@ class _HomeScreenState extends State<HomeScreen>
                     icon: Icons.settings,
                     label: 'Settings',
                     onTap: () {
-                      // TODO: Navigate to settings
+                      
                       _showSnackBar('Settings coming soon!', isError: false);
                     },
                   ),
@@ -581,7 +581,7 @@ class _HomeScreenState extends State<HomeScreen>
                     icon: Icons.help,
                     label: 'Help',
                     onTap: () {
-                      // TODO: Navigate to help
+                      
                       _showSnackBar('Help & Support coming soon!',
                           isError: false);
                     },

@@ -1,4 +1,4 @@
-// main.dart
+
 import 'package:bank/core/constants/app_colors.dart';
 import 'package:bank/core/local_storage/hive.dart';
 import 'package:bank/core/network/dio.dart';

@@ -32,7 +32,7 @@ class HomeRepository {
         }
       }
       
-      // Handle different types of errors
+      
       switch (e.type) {
         case DioExceptionType.connectionTimeout:
         case DioExceptionType.sendTimeout:

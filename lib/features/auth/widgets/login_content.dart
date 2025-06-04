@@ -29,14 +29,14 @@ class _LoginContentState extends State<LoginContent>
   late final List<Widget> loginContent;
   
 
-  // Form controllers
+  
   final TextEditingController _loginEmailController = TextEditingController();
   final TextEditingController _loginPasswordController = TextEditingController();
   final TextEditingController _registerNameController = TextEditingController();
   final TextEditingController _registerEmailController = TextEditingController();
   final TextEditingController _registerPasswordController = TextEditingController();
 
-  // Form keys for validation
+  
   final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
   final GlobalKey<FormState> _registerFormKey = GlobalKey<FormState>();
 
@@ -51,36 +51,36 @@ class _LoginContentState extends State<LoginContent>
     super.dispose();
   }
 
-  // String? _validateEmail(String? value) {
-  //   if (value == null || value.isEmpty) {
-  //     return 'Email is required';
-  //   }
-  //   final emailRegex = RegExp(r'^[\w-\.]+@([\w-]+\.)+[\w-]{2,4}$');
-  //   if (!emailRegex.hasMatch(value)) {
-  //     return 'Please enter a valid email';
-  //   }
-  //   return null;
-  // }
+  
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
-  // String? _validatePassword(String? value) {
-  //   if (value == null || value.isEmpty) {
-  //     return 'Password is required';
-  //   }
-  //   if (value.length < 8) {
-  //     return 'Password must be at least 8 characters';
-  //   }
-  //   return null;
-  // }
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
-  // String? _validateName(String? value) {
-  //   if (value == null || value.isEmpty) {
-  //     return 'Name is required';
-  //   }
-  //   if (value.length < 2) {
-  //     return 'Name must be at least 2 characters';
-  //   }
-  //   return null;
-  // }
+  
+  
+  
+  
+  
+  
+  
+  
+  
 
   Widget loginButton({
     required String title,
@@ -237,8 +237,8 @@ class _LoginContentState extends State<LoginContent>
             context,
             MaterialPageRoute(builder: (_) => const HomeScreen()),
             );
-          // Navigate to home screen
-          // Navigator.pushReplacementNamed(context, '/home');
+          
+          
         }
       },
       child: Stack(

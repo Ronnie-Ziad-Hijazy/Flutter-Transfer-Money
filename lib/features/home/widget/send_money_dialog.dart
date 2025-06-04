@@ -119,7 +119,7 @@ class _SendMoneyBottomSheetState extends State<SendMoneyBottomSheet>
       child: Column(
         mainAxisSize: MainAxisSize.min,
         children: [
-          // Confirmation Icon
+          
           Container(
             width: 80,
             height: 80,
@@ -147,7 +147,7 @@ class _SendMoneyBottomSheetState extends State<SendMoneyBottomSheet>
           ),
           const SizedBox(height: 24),
           
-          // Title
+          
           const Text(
             'Confirm Transfer',
             style: TextStyle(
@@ -158,7 +158,7 @@ class _SendMoneyBottomSheetState extends State<SendMoneyBottomSheet>
           ),
           const SizedBox(height: 16),
           
-          // Transfer Details
+          
           Container(
             padding: const EdgeInsets.all(20),
             decoration: BoxDecoration(
@@ -176,7 +176,7 @@ class _SendMoneyBottomSheetState extends State<SendMoneyBottomSheet>
           ),
           const SizedBox(height: 24),
           
-          // Action Buttons
+          
           Row(
             children: [
               Expanded(
@@ -286,14 +286,14 @@ class _SendMoneyBottomSheetState extends State<SendMoneyBottomSheet>
       _isLoading = true;
     });
     
-    // Simulate API call delay
+    
     await Future.delayed(const Duration(milliseconds: 1500));
     
     widget.onSendMoney(email, amount);
     
     if (mounted) {
-      Navigator.of(context).pop(); // Close confirmation dialog
-      Navigator.of(context).pop(); // Close bottom sheet
+      Navigator.of(context).pop(); 
+      Navigator.of(context).pop(); 
       
 
     }
@@ -341,7 +341,7 @@ class _SendMoneyBottomSheetState extends State<SendMoneyBottomSheet>
                   key: _formKey,
                   child: Column(
                     children: [
-                      // Drag Handle
+                      
                       Container(
                         width: 40,
                         height: 4,
@@ -352,7 +352,7 @@ class _SendMoneyBottomSheetState extends State<SendMoneyBottomSheet>
                       ),
                       const SizedBox(height: 24),
                       
-                      // Header
+                      
                       Row(
                         children: [
                           Container(
@@ -360,7 +360,7 @@ class _SendMoneyBottomSheetState extends State<SendMoneyBottomSheet>
                             decoration: BoxDecoration(
                               gradient: LinearGradient(
 
-                                // colors: [Colors.blue.shade400, Colors.blue.shade600],
+                                
                                 colors: [  Color(0xFF2D5D70),
                       Color(0xFF74A7BA)],
                                 begin: Alignment.topLeft,
@@ -406,7 +406,7 @@ class _SendMoneyBottomSheetState extends State<SendMoneyBottomSheet>
                       ),
                       const SizedBox(height: 32),
 
-                      // Email Field
+                      
                       TextFormField(
                         controller: _emailController,
                         keyboardType: TextInputType.emailAddress,
@@ -444,9 +444,9 @@ class _SendMoneyBottomSheetState extends State<SendMoneyBottomSheet>
                         ),
                       ),
                       const SizedBox(height: 20),
-// ronnie.hijazy@arcellaco.com
-//ronnyhijazy@gmail.com
-                      // Amount Field
+
+
+                      
                       TextFormField(
                         controller: _amountController,
                         keyboardType: const TextInputType.numberWithOptions(decimal: true),
@@ -488,7 +488,7 @@ class _SendMoneyBottomSheetState extends State<SendMoneyBottomSheet>
                       ),
                       const SizedBox(height: 32),
 
-                      // Send Button
+                      
                       SizedBox(
                         width: double.infinity,
                         child: ElevatedButton(

@@ -26,7 +26,7 @@ class AuthRepository {
         }
       }
       
-      // Handle different types of errors
+      
       switch (e.type) {
         case DioExceptionType.connectionTimeout:
         case DioExceptionType.sendTimeout:
@@ -67,7 +67,7 @@ class AuthRepository {
         }
       }
       
-      // Handle different types of errors
+      
       switch (e.type) {
         case DioExceptionType.connectionTimeout:
         case DioExceptionType.sendTimeout:

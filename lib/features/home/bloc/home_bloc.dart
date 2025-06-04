@@ -52,7 +52,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         transactionId: response.transactionId,
       ));
       
-      // Automatically refresh balance after successful transaction
+      
       await Future.delayed(const Duration(milliseconds: 500));
       emit(BalanceLoaded(balance: response.senderBalance,
        name: _username!
@@ -64,7 +64,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         currentBalance: _currentBalance,
       ));
       
-      // Return to balance loaded state after showing error
+      
       if (_currentBalance != null) {
         await Future.delayed(const Duration(seconds: 2));
         emit(BalanceLoaded(balance: _currentBalance!,
@@ -77,7 +77,7 @@ class HomeBloc extends Bloc<HomeEvent, HomeState> {
         currentBalance: _currentBalance,
       ));
       
-      // Return to balance loaded state after showing error
+      
       if (_currentBalance != null) {
         await Future.delayed(const Duration(seconds: 2));
         emit(BalanceLoaded(balance: _currentBalance!,

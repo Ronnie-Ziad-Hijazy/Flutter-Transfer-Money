@@ -1,4 +1,4 @@
-// lib/features/auth/models/login_request.dart
+
 class LoginRequest {
   final String email;
   final String password;
@@ -16,7 +16,7 @@ class LoginRequest {
   }
 }
 
-// lib/features/auth/models/login_response.dart
+
 class LoginResponse {
   final String token;
   final int userId;
@@ -34,7 +34,7 @@ class LoginResponse {
   }
 }
 
-// lib/features/auth/models/auth_error.dart
+
 class AuthError {
   final String errorMsg;
 
