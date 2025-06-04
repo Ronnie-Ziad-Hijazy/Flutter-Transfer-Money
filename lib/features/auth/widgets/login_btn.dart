@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 Widget loginButton(String title, void Function()? onPressed,
     {bool isLoading = false}) {
   return Padding(
-    padding: const EdgeInsets.symmetric(horizontal: 135, vertical: 16),
+    padding: const EdgeInsets.symmetric(horizontal: 100, vertical: 16),
     child: ElevatedButton(
       onPressed: isLoading ? null : onPressed,
       style: ElevatedButton.styleFrom(

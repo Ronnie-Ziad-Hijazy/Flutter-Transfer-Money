@@ -1,216 +1,181 @@
-import 'package:bank/animations/change_screen_animation.dart';
+// lib/features/auth/widgets/login_content.dart
 import 'package:bank/core/common/auth_text_field.dart';
-import 'package:bank/core/common/helper_functions.dart';
-import 'package:bank/features/auth/bloc/auth_bloc.dart';
+import 'package:bank/core/constants/app_colors.dart';
 import 'package:bank/features/auth/bloc/auth_event.dart';
 import 'package:bank/features/auth/bloc/auth_state.dart';
-import 'package:bank/features/auth/widgets/bottom_text.dart';
-import 'package:bank/features/auth/widgets/top_text.dart';
+import 'package:bank/features/auth/widgets/login_btn.dart';
+import 'package:bank/features/auth/bloc/auth_bloc.dart';
 import 'package:bank/features/home/pages/home_page.dart';
-
 import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 
-enum Screens {
-  createAccount,
-  welcomeBack,
-}
-
 class LoginContent extends StatefulWidget {
-  const LoginContent({Key? key}) : super(key: key);
+  const LoginContent({super.key});
 
   @override
   State<LoginContent> createState() => _LoginContentState();
 }
 
-class _LoginContentState extends State<LoginContent>
-    with TickerProviderStateMixin {
-  late final List<Widget> createAccountContent;
-  late final List<Widget> loginContent;
+class _LoginContentState extends State<LoginContent> with TickerProviderStateMixin {
+  final GlobalKey<FormState> _loginKey = GlobalKey<FormState>();
+  final GlobalKey<FormState> _registerKey = GlobalKey<FormState>();
   
-
+  // Login controllers
+  final TextEditingController emailController = TextEditingController(text: 'ronnyhijazy@gmail.com');
+  final TextEditingController passwordController = TextEditingController();
   
-  final TextEditingController _loginEmailController = TextEditingController();
-  final TextEditingController _loginPasswordController = TextEditingController();
-  final TextEditingController _registerNameController = TextEditingController();
-  final TextEditingController _registerEmailController = TextEditingController();
-  final TextEditingController _registerPasswordController = TextEditingController();
-
+  // Register controllers
+  final TextEditingController registerNameController = TextEditingController();
+  final TextEditingController registerEmailController = TextEditingController();
+  final TextEditingController registerPasswordController = TextEditingController();
   
-  final GlobalKey<FormState> _loginFormKey = GlobalKey<FormState>();
-  final GlobalKey<FormState> _registerFormKey = GlobalKey<FormState>();
-
-  @override
-  void dispose() {
-    _loginEmailController.dispose();
-    _loginPasswordController.dispose();
-    _registerNameController.dispose();
-    _registerEmailController.dispose();
-    _registerPasswordController.dispose();
-    ChangeScreenAnimation.dispose();
-    super.dispose();
-  }
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  
-  
-  
-  
-  
-  
-  
-  
-  
-
-  Widget loginButton({
-    required String title,
-    required VoidCallback onPressed,
-    required bool isLoading,
-  }) {
-    return Padding(
-      padding: const EdgeInsets.symmetric(horizontal: 135, vertical: 16),
-      child: ElevatedButton(
-        onPressed: isLoading ? null : onPressed,
-        style: ElevatedButton.styleFrom(
-          padding: const EdgeInsets.symmetric(vertical: 14),
-          backgroundColor: const Color.fromARGB(255, 38, 171, 76),
-          shape: const StadiumBorder(),
-          elevation: 8,
-          shadowColor: Colors.black87,
-        ),
-        child: isLoading
-            ? const SizedBox(
-                height: 20,
-                width: 20,
-                child: CircularProgressIndicator(
-                  color: Colors.white,
-                  strokeWidth: 2,
-                ),
-              )
-            : Text(
-                title,
-                style: const TextStyle(
-                  fontSize: 18,
-                  fontWeight: FontWeight.bold,
-                  color: Colors.black,
-                ),
-              ),
-      ),
-    );
-  }
-
-  void _performLogin() {
-    if (_loginFormKey.currentState!.validate()) {
-      context.read<AuthBloc>().add(
-            LoginEvent(
-              email: _loginEmailController.text.trim(),
-              password: _loginPasswordController.text,
-            ),
-          );
-    }
-  }
-
-  void _performRegistration() {
-    if (_registerFormKey.currentState!.validate()) {
-      context.read<AuthBloc>().add(
-            RegisterEvent(
-              name: _registerNameController.text.trim(),
-              email: _registerEmailController.text.trim(),
-              password: _registerPasswordController.text,
-            ),
-          );
-    }
-  }
+  bool isLoginMode = true;
+  late AnimationController _animationController;
+  late Animation<double> _fadeAnimation;
 
   @override
   void initState() {
-    createAccountContent = [
-      NameTextField(
-        nameController: _registerNameController,
-        hint: 'Name',
-        action: TextInputAction.next,
-      ),
-      EmailTextField(
-        emailController: _registerEmailController,
-      ),
-      PasswordTextField(
-        passwordController: _registerPasswordController,
-        hint: 'Password',
-        action: TextInputAction.done,
-       
-      ),
-      BlocBuilder<AuthBloc, AuthState>(
-        builder: (context, state) {
-          return loginButton(
-            title: 'Sign Up',
-            onPressed: _performRegistration,
-            isLoading: state is AuthLoading,
-          );
-        },
-      ),
-    ];
-
-    loginContent = [
-      EmailTextField(
-        emailController: _loginEmailController,
-      ),
-      PasswordTextField(
-        passwordController: _loginPasswordController,
-        hint: 'Password',
-        action: TextInputAction.done,
-      ),
-      BlocBuilder<AuthBloc, AuthState>(
-        builder: (context, state) {
-          return loginButton(
-            title: 'Log In',
-            onPressed: _performLogin,
-            isLoading: state is AuthLoading,
-          );
-        },
-      ),
-    ];
-
-    ChangeScreenAnimation.initialize(
-      vsync: this,
-      createAccountItems: createAccountContent.length,
-      loginItems: loginContent.length,
-    );
-
-    for (var i = 0; i < createAccountContent.length; i++) {
-      createAccountContent[i] = HelperFunctions.wrapWithAnimatedBuilder(
-        animation: ChangeScreenAnimation.createAccountAnimations[i],
-        child: createAccountContent[i],
-      );
-    }
-
-    for (var i = 0; i < loginContent.length; i++) {
-      loginContent[i] = HelperFunctions.wrapWithAnimatedBuilder(
-        animation: ChangeScreenAnimation.loginAnimations[i],
-        child: loginContent[i],
-      );
-    }
-
     super.initState();
+    _animationController = AnimationController(
+      duration: const Duration(milliseconds: 400),
+      vsync: this,
+    );
+    
+    _fadeAnimation = Tween<double>(
+      begin: 0.0,
+      end: 1.0,
+    ).animate(CurvedAnimation(
+      parent: _animationController,
+      curve: Curves.easeInOut,
+    ));
+    
+    _animationController.forward();
+  }
+
+  @override
+  void dispose() {
+    _animationController.dispose();
+    emailController.dispose();
+    passwordController.dispose();
+    registerNameController.dispose();
+    registerEmailController.dispose();
+    registerPasswordController.dispose();
+    super.dispose();
+  }
+
+  void _toggleMode() {
+    setState(() {
+      isLoginMode = !isLoginMode;
+    });
+    _animationController.reset();
+    _animationController.forward();
+  }
+
+  void _login() {
+    if (!_loginKey.currentState!.validate()) {
+      return;
+    }
+    
+    context.read<AuthBloc>().add(
+      LoginEvent(
+        email: emailController.text.trim(),
+        password: passwordController.text,
+      ),
+    );
+  }
+
+  void _register() {
+    if (!_registerKey.currentState!.validate()) {
+      return;
+    }
+    
+    context.read<AuthBloc>().add(
+      RegisterEvent(
+        name: registerNameController.text.trim(),
+        email: registerEmailController.text.trim(),
+        password: registerPasswordController.text,
+      ),
+    );
+  }
+
+  void _showSnackBar(String message, {bool isError = true}) {
+    ScaffoldMessenger.of(context).showSnackBar(
+      SnackBar(
+        content: Text(message),
+        backgroundColor: isError ? Colors.red : Colors.green,
+        behavior: SnackBarBehavior.floating,
+        shape: RoundedRectangleBorder(
+          borderRadius: BorderRadius.circular(10),
+        ),
+        margin: const EdgeInsets.all(16),
+      ),
+    );
+  }
+
+  Widget _buildLoginForm() {
+    return Form(
+      key: _loginKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          EmailTextField(
+            emailController: emailController,
+            action: TextInputAction.next,
+          ),
+          // const SizedBox(height: 24),
+          PasswordTextField(
+            passwordController: passwordController,
+            action: TextInputAction.done,
+          ),
+          // const SizedBox(height: 32),
+          BlocBuilder<AuthBloc, AuthState>(
+            builder: (context, state) {
+              return loginButton(
+                'Login',
+                state is AuthLoading ? null : _login,
+                isLoading: state is AuthLoading,
+              );
+            },
+          ),
+        ],
+      ),
+    );
+  }
+
+  Widget _buildRegisterForm() {
+    return Form(
+      key: _registerKey,
+      child: Column(
+        crossAxisAlignment: CrossAxisAlignment.stretch,
+        children: [
+          NameTextField(
+            nameController: registerNameController,
+            action: TextInputAction.next,
+          ),
+          // const SizedBox(height: 24),
+          EmailTextField(
+            emailController: registerEmailController,
+            action: TextInputAction.next,
+          ),
+          // const SizedBox(height: 24),
+          PasswordTextField(
+            passwordController: registerPasswordController,
+            hint: 'Password',
+            action: TextInputAction.done,
+          ),
+          // const SizedBox(height: 32),
+          BlocBuilder<AuthBloc, AuthState>(
+            builder: (context, state) {
+              return loginButton(
+                'Create Account',
+                state is AuthLoading ? null : _register,
+                isLoading: state is AuthLoading,
+              );
+            },
+          ),
+        ],
+      ),
+    );
   }
 
   @override
@@ -218,64 +183,93 @@ class _LoginContentState extends State<LoginContent>
     return BlocListener<AuthBloc, AuthState>(
       listener: (context, state) {
         if (state is AuthError) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            SnackBar(
-              content: Text(state.message),
-              backgroundColor: Colors.red,
-              behavior: SnackBarBehavior.floating,
-            ),
-          );
+          _showSnackBar(state.message);
         } else if (state is AuthSuccess) {
-          ScaffoldMessenger.of(context).showSnackBar(
-            const SnackBar(
-              content: Text('Authentication successful!'),
-              backgroundColor: Colors.green,
-              behavior: SnackBarBehavior.floating,
-            ),
-          );
-           Navigator.pushReplacement(
+          final message = isLoginMode ? 'Login successful!' : 'Account created successfully!';
+          _showSnackBar(message, isError: false);
+          Navigator.pushReplacement(
             context,
             MaterialPageRoute(builder: (_) => const HomeScreen()),
-            );
-          
-          
+          );
         }
       },
       child: Stack(
         children: [
-          const Positioned(
+          // Welcome text
+          Positioned(
             top: 136,
             left: 24,
-            child: TopText(),
+            child: AnimatedSwitcher(
+              duration: const Duration(milliseconds: 300),
+              child: Text(
+                isLoginMode ? 'Welcome\nBack' : 'Create\nAccount',
+                key: ValueKey(isLoginMode),
+                style: const TextStyle(
+                  fontSize: 40,
+                  fontWeight: FontWeight.w600,
+                ),
+              ),
+            ),
           ),
+          
+          // Main form content
           Padding(
             padding: const EdgeInsets.only(top: 100),
-            child: Stack(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              crossAxisAlignment: CrossAxisAlignment.stretch,
               children: [
-                Form(
-                  key: _registerFormKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: createAccountContent,
-                  ),
-                ),
-                Form(
-                  key: _loginFormKey,
-                  child: Column(
-                    mainAxisAlignment: MainAxisAlignment.center,
-                    crossAxisAlignment: CrossAxisAlignment.stretch,
-                    children: loginContent,
+                FadeTransition(
+                  opacity: _fadeAnimation,
+                  child: AnimatedSwitcher(
+                    duration: const Duration(milliseconds: 300),
+                    child: Container(
+                      key: ValueKey(isLoginMode),
+                      child: isLoginMode ? _buildLoginForm() : _buildRegisterForm(),
+                    ),
                   ),
                 ),
               ],
             ),
           ),
-          const Align(
+          
+          // Bottom switch section
+          Align(
             alignment: Alignment.bottomCenter,
             child: Padding(
-              padding: EdgeInsets.only(bottom: 50),
-              child: BottomText(),
+              padding: const EdgeInsets.only(bottom: 50),
+              child: Padding(
+                padding: const EdgeInsets.all(16),
+                child: GestureDetector(
+                  onTap: _toggleMode,
+                  child: RichText(
+                    text: TextSpan(
+                      style: const TextStyle(
+                        fontSize: 16,
+                        fontFamily: 'Montserrat',
+                      ),
+                      children: [
+                        TextSpan(
+                          text: isLoginMode 
+                            ? 'Don\'t have an account? ' 
+                            : 'Already have an account? ',
+                          style: TextStyle(
+                            color: kPrimaryColor,
+                            fontWeight: FontWeight.w600,
+                          ),
+                        ),
+                        TextSpan(
+                          text: isLoginMode ? 'Sign Up' : 'Sign In',
+                          style: TextStyle(
+                            color: kSecondaryColor,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        ),
+                      ],
+                    ),
+                  ),
+                ),
+              ),
             ),
           ),
         ],
